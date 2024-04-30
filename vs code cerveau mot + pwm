@@ -1,1 +1,49 @@
+#include <Arduino.h>
 
+// def des numéros de broches 
+int pwmD= 25; // mot droit  
+int pwmG= 26 ; // mot gauche
+int pwmA = 32;// servo mot 
+
+// caractéristiques du servo mot
+int frequence = 50;
+int canal0 = 0;
+int canal1 = 1; 
+int resolution = 10; 
+
+// caractéristiques de la pwm
+
+int frequence2 =20000;
+int canal2=0;
+int canal3=1;
+int resolution2 = 10;
+
+//  programme servo moteur
+void setup()
+{
+  ledcSetup (canal0, frequence, resolution);
+  ledcSetup (canal1, frequence, resolution);
+  ledcAttachPin (pwmA, canal0);
+}
+
+void loop()
+{
+  ledcWrite(canal0, 45);
+  delay(2000);
+  ledcWrite(canal0,60);
+  delay(2000);
+}
+
+// programme pwm
+
+void setup(){
+  ledcSetup(canal2, frequence2, resolution);
+  ledcSetup(canal3, frequence, resolution2);
+  ledcAttachPin(pwmD, canal2);
+  ledcAttachPin(pwmG, canal3);
+
+}
+  void loop(){
+    ledcWrite(canal2, 600);
+    ledcWrite(canal3, 800);
+  }
