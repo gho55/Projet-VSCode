@@ -24,6 +24,10 @@ void setup()
   ledcSetup (canal0, frequence, resolution);
   ledcSetup (canal1, frequence, resolution);
   ledcAttachPin (pwmA, canal0);
+  ledcSetup(canal2, frequence2, resolution);
+  ledcSetup(canal3, frequence, resolution2);
+  ledcAttachPin(pwmD, canal2);
+  ledcAttachPin(pwmG, canal3);
 }
 
 void loop()
@@ -32,18 +36,6 @@ void loop()
   delay(2000);
   ledcWrite(canal0,60);
   delay(2000);
+  ledcWrite(canal2, 600);
+  ledcWrite(canal3, 800);
 }
-
-// programme pwm
-
-void setup(){
-  ledcSetup(canal2, frequence2, resolution);
-  ledcSetup(canal3, frequence, resolution2);
-  ledcAttachPin(pwmD, canal2);
-  ledcAttachPin(pwmG, canal3);
-
-}
-  void loop(){
-    ledcWrite(canal2, 600);
-    ledcWrite(canal3, 800);
-  }
