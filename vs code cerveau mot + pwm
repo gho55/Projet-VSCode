@@ -1,9 +1,11 @@
 #include <Arduino.h>
 
 // def des numéros de broches 
-int pwmD= 25; // mot droit  
-int pwmG= 26 ; // mot gauche
-int pwmA = 32;// servo mot 
+int pwmD1= 27; // mot droit  
+int pwmG1= 28; // mot gauche
+int pwmD2= 30; // mot droit  
+int pwmG2= 31; // mot gauche
+int pwmA = 32; // servo mot 
 
 // caractéristiques du servo mot
 int frequence = 50;
@@ -26,8 +28,8 @@ void setup()
   ledcAttachPin (pwmA, canal0);
   ledcSetup(canal2, frequence2, resolution);
   ledcSetup(canal3, frequence, resolution2);
-  ledcAttachPin(pwmD, canal2);
-  ledcAttachPin(pwmG, canal3);
+  ledcAttachPin(pwmD1, canal2);
+  ledcAttachPin(pwmG1, canal3);
 }
 
 void loop()
@@ -39,3 +41,6 @@ void loop()
   ledcWrite(canal2, 600);
   ledcWrite(canal3, 800);
 }
+
+
+
