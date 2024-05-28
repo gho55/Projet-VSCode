@@ -1,26 +1,38 @@
-# Projet-VSCode
- 
 #include <Arduino.h>
 
-int pwmA = 32;
+int motD1=28; // moteur droit pin 1
+int motD2=29; // moteur droit pin 2
+int motG1=30; // moteur gauche pin 1
+int motG2=31; // moteur gauche pin 2
+int pwmA =32; // initialisation servo moteur 
 
-int frequence = 50;
-int canal0 = 0;
-int canal1 = 1;
-int resolution = 10;
+// servo moteur 
+int frequence=50; 
+int canal0=0;
+int canal1=1;
+int resolution=10;
+int frequence2 =500;
+
+//pwm
+int freq =500;
+int canal3=0;
+int canal4=1;
+int reso = 10;
+
 
 void setup()
 {
+  // def servo mot
   ledcSetup(canal0, frequence, resolution);
-  ledcSetup(canal1, frequence, resolution);
-
-  ledcAttachPin(pwmA, canal0);
+  ledcSetup(canal1, frequence, resolution); 
+  ledcAttachPin(pwmA, canal0); 
 }
 
 void loop()
 {
-  ledcWrite(canal0, 45);
-  delay(2000);
+  // servo moteur
+  ledcWrite(canal0, 45); 
+  delay(2000); 
   ledcWrite(canal0, 60);
-  delay(2000);
+  delay(2000); 
 }
