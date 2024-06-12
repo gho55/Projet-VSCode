@@ -1,9 +1,10 @@
-#include <Arduino.h>
+# include <Arduino.h>
 
 int motD1=28; // moteur droit pin 1
 int motD2=29; // moteur droit pin 2
 int motG1=30; // moteur gauche pin 1
 int motG2=31; // moteur gauche pin 2
+
 int pwmA =32; // initialisation servo moteur 
 
 // servo moteur 
@@ -14,11 +15,12 @@ int resolution=10;
 int frequence2 =500;
 
 //pwm
-int freq =500;
-int canal3=0;
-int canal4=1;
+int freq =50;
+int canal2=0;
+int canal3=1;
+int canal4=2;
+int canal5=3;
 int reso = 10;
-
 
 void setup()
 {
@@ -26,6 +28,16 @@ void setup()
   ledcSetup(canal0, frequence, resolution);
   ledcSetup(canal1, frequence, resolution); 
   ledcAttachPin(pwmA, canal0); 
+
+  // code pour pwm
+  ledcSetup(canal2, freq, reso);
+  ledcSetup(canal3, freq, reso); 
+  ledcSetup(canal4, freq, reso);
+  ledcSetup(canal5, freq, reso);
+  ledcAttachPin(motD1, canal2);
+  ledcAttachPin(motD2, canal3);
+  ledcAttachPin(motG1, canal4);
+  ledcAttachPin(motG2, canal5);
 }
 
 void loop()
@@ -35,4 +47,9 @@ void loop()
   delay(2000); 
   ledcWrite(canal0, 60);
   delay(2000); 
+  // pwm 
+  ledcWrite(canal2,512);
+  ledcWrite(canal3,200);
+  ledcWrite(canal4,800);
+  ledcWrite(canal5,1015);
 }
