@@ -1,0 +1,46 @@
+#include <Arduino.h>
+
+int pwmA = 32;
+
+int frequence=50; 
+int canal0=0;
+int canal1=1;
+int resolution=10;
+int frequence2 =500;
+
+int CED=34;
+int CID=35;
+int CIG=36;
+int CEG=39; 
+
+
+
+void setup()
+{
+  // def servo mot
+  ledcSetup(canal0, frequence, resolution);
+  ledcSetup(canal1, frequence, resolution); 
+  ledcAttachPin(pwmA, canal0); 
+  // capteur
+  Serial.begin (9600);
+}
+
+int lecture_CID;
+int lecture_CED;
+int lecture_CIG;
+int lecture_CEG;
+
+void loop()
+{
+  // servo moteur
+  ledcWrite(canal0, 45); 
+  delay(1000); 
+  ledcWrite(canal0, 60);
+  delay(2000); 
+  // lecture des capteurs
+  lecture_CID= analogRead(CID);
+  lecture_CED= analogRead(CED);
+  lecture_GID= analogRead(GID);
+  lecture_GED= analogRead(GED);
+  Serial.printf("CED %d   CID %d  CIG  %d   CEG %d\n",lecture_CID,lecture_CED,lecture_GID,lecture_GED )
+}
