@@ -1,48 +1,50 @@
 # include <Arduino.h>
 
-int motD1=28; // moteur droit pin 1
-int motD2=29; // moteur droit pin 2
-int motG1=30; // moteur gauche pin 1
-int motG2=31; // moteur gauche pin 2
+int MA1=19; // moteur droit pin 1
+int MA2=18; // moteur droit pin 2
+int MB1=17; // moteur gauche pin 1
+int MB2=16; // moteur gauche pin 2
 
 void setup() {
-     pinMode(IA1, OUTPUT);
-     pinMode(IA2, OUTPUT);
-     pinMode(IB1, OUTPUT);
-     pinMode(IB2, OUTPUT);
+     pinMode(MA1, OUTPUT);
+     pinMode(MA2, OUTPUT);
+     pinMode(MB1, OUTPUT);
+     pinMode(MB2, OUTPUT);
 }
 
-void loop() {
-     MA1_Forward(200);//Motor MA1 forward; PWM speed control
-     MB1_Forward(200);//Motor MB1 forward; PWM speed control
+void loop() 
+{
+    (200);//Motor MA1 forward; PWM speed control
+    (200);//Motor MB1 forward; PWM speed control
      delay(1000);
-     MA2_Backward(200);//Motor MA2 backward; PWM speed control
-     MB2_Backward(200);//Motor MB2 backward; PWM speed control
+    (200);//Motor MA2 backward; PWM speed control
+    (200);//Motor MB2 backward; PWM speed control
      delay(1000);
+
 }
 
 void MA1_Forward(int Speed1)  //fast decay; Speed = High duty-cycle
 {
-     analogWrite(IA1,Speed1);
-     digitalWrite(IA2,LOW);
+     analogWrite(MA1,Speed1);
+     digitalWrite(MA2,LOW);
   }
 
 void MA2_Backward(int Speed1)  //slow decay; Speed = Low duty-cycle
 {
     int Speed2=255-Speed1;
-    analogWrite(IA1,Speed2);
-    digitalWrite(IA2,HIGH);
+    analogWrite(MA1,Speed2);
+    digitalWrite(MA2,HIGH);
   }
 
 void MB1_Forward(int Speed1)
 {
-     analogWrite(IB1,Speed1);
-     digitalWrite(IB2,LOW);
+     analogWrite(MB1,Speed1);
+     digitalWrite(MB2,LOW);
   }
 
 void MB2_Backward(int Speed1)
 {
     int Speed2=255-Speed1;
-    analogWrite(IB1,Speed2);
-    digitalWrite(IB2,HIGH);
+    analogWrite(MB1,Speed2);
+    digitalWrite(MB2,HIGH);
   }
