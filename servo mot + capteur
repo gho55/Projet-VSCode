@@ -40,7 +40,7 @@ void loop()
   // lecture des capteurs
   lecture_CID= analogRead(CID);
   lecture_CED= analogRead(CED);
-  lecture_GID= analogRead(GID);
-  lecture_GED= analogRead(GED);
-  Serial.printf("CED %d   CID %d  CIG  %d   CEG %d\n",lecture_CID,lecture_CED,lecture_GID,lecture_GED )
+  lecture_CIG= analogRead(CIG);
+  lecture_CEG= analogRead(CEG);
+  Serial.printf("CED %d   CID %d  CIG  %d   CEG %d\n",lecture_CID,lecture_CED,lecture_CIG,lecture_CEG )
 }
