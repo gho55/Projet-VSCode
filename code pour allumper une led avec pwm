@@ -1,0 +1,28 @@
+#include <Arduino.h>
+
+int LED= 32;
+int pwmcanal0=0;
+int frequence= 1000;
+int resolution =8;
+int pwmPin=32;
+
+
+void setup()
+ {
+  Serial.begin(9600);
+  pinMode(LED,OUTPUT);
+  ledcSetup(pwmcanal0, frequence, resolution);
+  ledcAttachPin(pwmPin,pwmcanal0);
+
+}
+void loop()
+{
+  ledcWrite(pwmcanal0,63);
+  delay(1000);
+  ledcWrite(pwmcanal0,127);
+  delay (1000);
+  ledcWrite(pwmcanal0,191);
+  delay(1000);
+  ledcWrite(pwmcanal0,255);
+  delay(1000);
+}
