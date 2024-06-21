@@ -1,0 +1,55 @@
+#include <Arduino.h>
+
+#define PWM_CANAL_0 0
+#define FREQUENCE 1000
+#define RESOLUTION 10
+#define PWM_PIN 32      // Bread board
+#define CNY_PIN 34
+#define EXT_G 36
+#define INT_G 39
+#define INT_D 34
+#define EXT_D 35
+
+int i;
+int extd;
+int intd;
+int extg;
+int intg;
+
+void setup()
+ {
+  Serial.begin(9600);
+  pinMode(PWM_PIN,OUTPUT);
+  pinMode(CNY_PIN, INPUT);
+  pinMode(extd , INPUT);
+  pinMode(intd, INPUT);
+  pinMode(extg, INPUT);
+  pinMode(intg , INPUT);
+  ledcSetup(PWM_CANAL_0, FREQUENCE, RESOLUTION);
+  ledcAttachPin(PWM_PIN, PWM_CANAL_0);
+  
+}
+void loop()
+{
+  // ledcWrite(PWM_CANAL_0,63);
+  // delay(1000);
+  // ledcWrite(PWM_CANAL_0,127);
+  // delay (1000);
+  // ledcWrite(PWM_CANAL_0,191);
+  // delay(1000);
+  // ledcWrite(PWM_CANAL_0,255);
+  // delay(1000);
+
+  // i = analogRead(CNY_PIN);
+  // ledcWrite(PWM_CANAL_0, i/4);
+  // Serial.println(i);
+
+  extd=digitalRead(extd);
+  intd=digitalRead(intd);
+  extg=digitalRead(extg);
+  intg=digitalRead(intg);
+
+  Serial.printf("extd  %d    intd  %d    extg  %d    intg  %d \n",extd,intd, extg, intg);
+
+
+}
