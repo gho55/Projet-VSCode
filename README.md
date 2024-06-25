@@ -16,8 +16,12 @@ int canal2G = 1; // pwm2G
 int canal3D = 2; // pwm canal1D
 int canal4D = 3; // pwm2D
 int frequenceM = 20000 ; // pwm droit et gauche*/
-int frequences = 50 ; //servo
+int frequences = 50 ; 
+
 int canal0 = 4 ; //servo
+int frequence=50;
+int canal1=1;
+int frequence2 =500;
 
 
 void setup() 
@@ -31,6 +35,12 @@ void setup()
   ledcAttachPin (pwmg1, canal2G); // Moteur gauche
   ledcAttachPin(pwmD, canal3D); // Moteur droit
   ledcAttachPin(pwmD1, canal4D); // Moteur droit
+
+    // def servo mot
+  ledcSetup(canal0, frequence, resolution);
+  ledcSetup(canal1, frequence, resolution); 
+  ledcAttachPin(pwmA, canal0); 
+
 }
 
 int lecture_cap_din; // variable pour lire les capteurs CnY70 int lecture_cap_dex;
@@ -60,4 +70,11 @@ void loop()
   Serial.printf("moteur droit tourne \n");
   ledcWrite(canal3D,800);
   Serial.printf("moteur gauche tourne \n");
+
+
+  // servo moteur
+  ledcWrite(canal0, 45); 
+  delay(2000); 
+  ledcWrite(canal0, 60);
+  delay(2000); 
 }
