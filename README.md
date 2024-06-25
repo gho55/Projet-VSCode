@@ -1,9 +1,9 @@
 #include <Arduino.h>
 
-int extd = 36 ; //initialisation capteur CNY70
-int intd = 39 ; //initialisation capteur CNY70
-int extg= 35 ; //initialisation capteur CNY70
-int intg = 34 ; //initialisation capteur CNY70
+int extg = 36 ; //initialisation capteur CNY70
+int intg = 39 ; //initialisation capteur CNY70
+int extd= 35 ; //initialisation capteur CNY70
+int intd = 34 ; //initialisation capteur CNY70
 int resolution =10; // pour le servo moteur 
 //int encodeur = ; //initialisation de l'encodeur à trouver !!!!!!
 int pwmA = 32; // (servo moteur succes) à mettre sur 7 lors du test carte
@@ -21,6 +21,10 @@ int canal0 = 4 ; //servo
 int frequence=50; // servo
 int canal1=1; // servo
 int frequence2 =500;// servo
+int frequence3=1000;
+int PWM_PIN=32;
+int CNY_PIN=34;
+int PWM_CANAL_0=0;
 
 void setup() 
 {
@@ -40,10 +44,14 @@ void setup()
 
   // pour les capteurs 
 
-  pinMode(cny1, INPUT);
-  pinMode(cny2, INPUT);
-  pinMode(cny3, INPUT);
-  pinMode(cny4, INPUT);
+  pinMode(PWM_PIN,OUTPUT);
+  pinMode(CNY_PIN, INPUT);
+  pinMode(extd , INPUT);
+  pinMode(intd, INPUT);
+  pinMode(extg, INPUT);
+  pinMode(intg , INPUT);
+  ledcSetup(PWM_CANAL_0, frequence3, resolution);
+  ledcAttachPin(PWM_PIN, PWM_CANAL_0);
 
 }
 
@@ -55,10 +63,10 @@ int lecture_cap_dex;
 
 void loop()
 {
-  lecture_cap_din = analogRead (cny1);
-  lecture_cap_dex = analogRead (cny2);
-  lecture_cap_gex = analogRead (cny3);
-  lecture_cap_gin = analogRead (cny4);
+  lecture_cap_din = analogRead (intd);
+  lecture_cap_dex = analogRead (intg);
+  lecture_cap_gex = analogRead (extd);
+  lecture_cap_gin = analogRead (extg);
 
   ledcWrite(canal0, 102); //servo tourne à gauche
   Serial.printf("servo ferme la pince \n");
@@ -104,4 +112,3 @@ switch(roule){
   digitalWrite(SignalN1, HIGH);
 }
 }*/
-
