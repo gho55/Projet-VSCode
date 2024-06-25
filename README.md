@@ -15,13 +15,12 @@ int canal1G = 0; // pwm canallg
 int canal2G = 1; // pwm2G
 int canal3D = 2; // pwm canal1D
 int canal4D = 3; // pwm2D
-int frequenceM = 20000 ; // pwm droit et gauche*/
+int frequenceM = 1000 ; // pwm droit et gauche*/
 int frequences = 50 ; 
-
 int canal0 = 4 ; //servo
-int frequence=50;
-int canal1=1;
-int frequence2 =500;
+int frequence=50; // servo
+int canal1=1; // servo
+int frequence2 =500;// servo
 
 
 void setup() 
@@ -35,46 +34,39 @@ void setup()
   ledcAttachPin (pwmg1, canal2G); // Moteur gauche
   ledcAttachPin(pwmD, canal3D); // Moteur droit
   ledcAttachPin(pwmD1, canal4D); // Moteur droit
-
-    // def servo mot
+  // def servo mot
   ledcSetup(canal0, frequence, resolution);
   ledcSetup(canal1, frequence, resolution); 
   ledcAttachPin(pwmA, canal0); 
-
 }
 
 int lecture_cap_din; // variable pour lire les capteurs CnY70 int lecture_cap_dex;
 int lecture_cap_gex;
 int lecture_cap_gin;
-//int lecture_encodeur;
+int lecture_cap_dex; 
 
 void loop()
 {
-
   lecture_cap_din=analogRead (cny1);
   lecture_cap_din=analogRead (cny2);
   lecture_cap_gex=analogRead (cny3);
   lecture_cap_gin=analogRead (cny4);
-  Serial.printf("\ncapteur extérieur gauche:%d\n", lecture_cap_gex);
-  Serial.printf("capteur intérieur gauche:%d\n", lecture_cap_gin);
-  Serial.printf("capteur intérieur droit:%d\n",lecture_cap_din);
-  Serial.printf("capteur extérieur droit:%d\n", lecture_cap_din);
+  Serial.printf("capteur extérieur gauche:%d \n", lecture_cap_gex);
+  Serial.printf("capteur intérieur gauche:%d \n", lecture_cap_gin);
+  Serial.printf("capteur intérieur droit:%d \n",lecture_cap_din);
+  Serial.printf("capteur extérieur droit:%d \n", lecture_cap_dex);
   ledcWrite(canal0, 102); //servo tourne à gauche
-  Serial.printf("servo ferme la pince\n");
-  //retard (2000); // attente
-  ledcWrite(canal0,51); //servo tourne à droite
-  Serial.printf("servo ouvre la pince\n");
-  //retard (2000); // attente
-  ledcWrite(canal1G,800);
-  //délai (5000);
+  Serial.printf("servo ferme la pince \n");
+  ledcWrite(canal0,40); //servo tourne à droite
+  Serial.printf("servo ouvre la pince \n");
+  ledcWrite(canal1G,400);
   Serial.printf("moteur droit tourne \n");
   ledcWrite(canal3D,800);
   Serial.printf("moteur gauche tourne \n");
 
-
   // servo moteur
-  ledcWrite(canal0, 45); 
-  delay(2000); 
-  ledcWrite(canal0, 60);
+  ledcWrite(canal0, 60); 
+  delay(20000); 
+  ledcWrite(canal0, 100);
   delay(2000); 
 }
