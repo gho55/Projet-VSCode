@@ -44,10 +44,10 @@ void loop()
   // ledcWrite(PWM_CANAL_0, i/4);
   // Serial.println(i);
 
-  extd=digitalRead(extd);
-  intd=digitalRead(intd);
-  extg=digitalRead(extg);
-  intg=digitalRead(intg);
+  extd=analogRead(extd);
+  intd=analogRead(intd);
+  extg=analogRead(extg);
+  intg=analogRead(intg);
 
   Serial.printf("extd  %d    intd  %d    extg  %d    intg  %d \n",extd,intd, extg, intg);
 
