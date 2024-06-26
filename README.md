@@ -1,5 +1,7 @@
 #include <Arduino.h>
 
+int i;
+
 int extg = 36 ; //initialisation capteur CNY70
 int intg = 39 ; //initialisation capteur CNY70
 int extd= 35 ; //initialisation capteur CNY70
@@ -22,13 +24,23 @@ int frequence=50; // servo
 int canal1=1; // servo
 int frequence2 =500;// servo
 int frequence3=1000;
-int PWM_PIN=32;
-int CNY_PIN=34;
-int PWM_CANAL_0=0;
+int PWMPIN=32;
+int CNYPIN=34;
+int PWMCANAL0=0;
 
-void setup() 
-{
+void setup()
+ {
   Serial.begin(9600);
+  pinMode(PWMPIN,OUTPUT);
+  pinMode(CNYPIN, INPUT);
+
+  pinMode(extd , INPUT);
+  pinMode(intd, INPUT);
+  pinMode(extg, INPUT);
+  pinMode(intg , INPUT);
+
+  ledcSetup(PWMCANAL0, frequence, resolution);
+  ledcAttachPin(PWMPIN, PWMCANAL0);
   ledcSetup (canal0, frequences, resolution); //SERVO
   ledcSetup (canal2G, frequenceM, resolution); //PWMG
   ledcSetup (canal4D, frequenceM, resolution); // PWMD
@@ -44,38 +56,44 @@ void setup()
 
   // pour les capteurs 
 
-  pinMode(PWM_PIN,OUTPUT);
-  pinMode(CNY_PIN, INPUT);
+  pinMode(PWMPIN,OUTPUT);
+  pinMode(CNYPIN, INPUT);
   pinMode(extd , INPUT);
   pinMode(intd, INPUT);
   pinMode(extg, INPUT);
   pinMode(intg , INPUT);
-  ledcSetup(PWM_CANAL_0, frequence3, resolution);
-  ledcAttachPin(PWM_PIN, PWM_CANAL_0);
+  ledcSetup(PWMCANAL0, frequence3, resolution);
+  ledcAttachPin(PWMPIN, PWMCANAL0);
 
+  
 }
-
 int lecture_cap_din; // variable pour lire les capteurs CnY70 int lecture_cap_dex;
 int lecture_cap_gex;
 int lecture_cap_gin;
 int lecture_cap_dex; 
-
-
 void loop()
 {
+  extd=analogRead(extd);
+  intd=analogRead(intd);
+  extg=analogRead(extg);
+  intg=analogRead(intg);
+
+  while(1)
+  {
+  Serial.printf("extd  %d    intd  %d    extg  %d    intg  %d \n",extd,intd, extg, intg);
   lecture_cap_din = analogRead (intd);
   lecture_cap_dex = analogRead (intg);
   lecture_cap_gex = analogRead (extd);
   lecture_cap_gin = analogRead (extg);
-
+  }
   ledcWrite(canal0, 102); //servo tourne à gauche
-  Serial.printf("servo ferme la pince \n");
+  // Serial.printf("servo ferme la pince \n");
   ledcWrite(canal0,40); //servo tourne à droite
   Serial.printf("servo ouvre la pince \n");
-  ledcWrite(canal1G,400);
+  // ledcWrite(canal1G,400);
   Serial.printf("moteur droit tourne \n");
   ledcWrite(canal3D,800);
-  Serial.printf("moteur gauche tourne \n");
+  // Serial.printf("moteur gauche tourne \n");
 
 // servo moteur
   ledcWrite(canal0, 60); 
@@ -84,31 +102,5 @@ void loop()
   delay(2000);
 
 
-  Serial.printf("cny1= %d \n cyn2=%d \n   cny3=%d \n    cny4=%d\n", lecture_cap_gex,lecture_cap_gin, lecture_cap_din, lecture_cap_dex);
+  // Serial.printf("cny1= %d \n cyn2=%d \n   cny3=%d \n    cny4=%d\n", lecture_cap_gex,lecture_cap_gin, lecture_cap_din, lecture_cap_dex);
 }
-
-// suivi de ligne 
-/*
-err= CG_value-CD_value;
-cmd=(float)(kp*err+kd*(err-err_prec));
-err_prec=err;
-
-if(cmd>1)cmd=1;
-if(cmd<-1)cmd=-1;
-
-switch(roule){
-  case 0:
-  break;
-
-  case 1:
-  vg=(vmax*(1-cmd));
-  vd=(vmax*(1+cmd));
-  if(vg>vmax) vg= vmax;
-  if (vd>vmax)vd=vmax;
-
-  ledcWrite(canal0,vg);
-  digitalWrite(SignalN2, LOW);
-  ledcWrite(canal1,vd);
-  digitalWrite(SignalN1, HIGH);
-}
-}*/
